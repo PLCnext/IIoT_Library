@@ -2,13 +2,14 @@
 
 Contains examples showing how to use Industrial Internet of Things (IIoT) functions in PLCnext Engineer, including:
 
-- JSON_ function block.
+- JSON_Coder function block.
+- JSON_Decoder function block.
 - IIOT_MqttClient function block.
 
 At present the function blocks used in these examples are contained in the following libraries in the PLCnext Store:
 
-- JSON_Library_1
-- MQTT_Client_Library_2
+- JSON_utility_library
+- MQTT_Client_Library
 
 In the future, these will be combined into a single IIOT_Library in the PLCnext Store.
 
@@ -18,30 +19,29 @@ For examples showing how to use the MQTT Client, the following PLCnext Engineer 
 
    * MQTT_1_EXA_MQTT_Client.pcwex
 
-For these examples, the following hardware is used:
+For these examples, the following is required:
 
-   * !AXC_F_1152
+   * Any PLCnext Control device with firmware version 2021.0 or later.
+   * PLCnext Engineer version 2021.0 or later.
+   * Access to an MQTT server from the PLC, e.g. test.mosquitto.org.
 
 ### Common setup tasks
 
-To use the examples in the project, open the project in PLCnext Engineer and complete the following tasks:
+1. Open the PLCnext Engineer project.
 
-1. In the Project *Settings* window, set the fields in the **IP range** section to suit your network. 
-In particular, if you want to use the default Mosquitto test broker, the *Default gateway* must be set to the IP address of your internet router .
+1. Check that the controller model and firmware version in the project matches the controller you are using. If necessary, [replace the PLC in the project](https://www.plcnext.help/te/About/#replacing_a_plc) with the type of PLC that you are using.
 
-1. Check that the controller model and firware version in the project matches the controller you are using.
+1. In the Project *Settings* window, set the fields in the **IP range** section to suit your network. In particular, if you want to use the default Mosquitto test broker, the *Default gateway* must be set to the IP address of your internet router.
 
 1. In the controller *Settings* window, set the fields in the **Ethernet [Profinet]** section to suit your controller.
 
 1. In the Project *Online Devices* window, check that the PLC is online and that the **Status** field is OK (indicated with a check mark).
 
-1. Add the MQTT Client library to the project using the "Add User Library..." context menu in the **Libraries** area of the Component view.
-
 1. Download the project to the PLC and check that the PLC starts OK.
 
-You are now ready to try the example programs.
+### MQTT setup tasks
 
-Before using any of the example programs, check the values of the following variables, and change them if required:
+Before using the MQTT programs `Publish` and/or `Subscribe`, check the values of the following variables, and change them if required:
 
    | Name           | Description                                                                                                 | Default value                               |
    |:---------------|:------------------------------------------------------------------------------------------------------------|:--------------------------------------------|
@@ -49,11 +49,24 @@ Before using any of the example programs, check the values of the following vari
    | CLIENT_ID      | The ID of the MQTT client.<br/>Must be unique on the MQTT broker.                                           | PLCnext Subscriber or<br/>PLCnext Publisher |
    | TOPIC          | The topic to publish/subscribe to on the broker.                                                            | plcnext                                     |
 
-Note that every program in this example project contains two code sheets, one written in Ladder and the other in Structured Text. 
+Note that the MQTT programs in this example project contains two code sheets, one written in Ladder and the other in Structured Text. 
 These two code sheets implement exactly the same functions, but only one will be executed at a time. 
 You can control which sheet is executed using the `Language` variable in the respective program.
 
-### Publish
+
+### Quick start
+
+1. In the program instance called "JSON_Code_Decode", set the variable `udtCoderExample.udtCoder.x_EN` to `TRUE`. This creates a JSON stream as a byte array. This is passed to the "MQTT_Publish" program instance via Port variables.
+
+1. In the program instance called "MQTT_Publish", set the variable `Run` to TRUE. This starts publishing the JSON stream to the Mosquitto test broker. Successful publishing can be checked by subscribing to the same topic from any machine with MQTT client software installed (e.g. the `mosquitto_sub` command-line tool on Linux).
+
+1. In the program instance called "MQTT_Subscribe", set the variable `Run` to TRUE. This subscribes to the topic on the Mosquitto test broker where the JSON messages are being published.
+
+1. Each time a new message arrives, the JSON Decode process is triggered via Port variables.
+
+1. In "JSON_Code_Decode", check the value of the structs udtJsonValue_Dot_INT and udtJsonValue_Dot_DINT. The values of the INT and DINT variables from the incoming JSON stream should appear in these structs.
+
+### Program details: Publish
 
 This is an example of how to send messages as an MQTT publisher. The example demonstrates:
 
@@ -82,7 +95,7 @@ The program implements a simple state sequencer that progresses through the foll
 
 This example is based on the [async_publish][async_publish] sample in the Paho MQTT C++ library.
 
-### Subscribe
+### Program details: Subscribe
 
 This is an example of how to receive messages as an MQTT subscriber.
 
