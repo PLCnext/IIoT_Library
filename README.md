@@ -13,13 +13,13 @@ At present the function blocks used in these examples are contained in the follo
 
 In the future, these will be combined into a single IIOT_Library in the PLCnext Store.
 
-## Examples
+## Example
 
-For examples showing how to use the MQTT Client, the following PLCnext Engineer project is installed with this library:
+The following PLCnext Engineer project is available in the plcneng directory:
 
-   * MQTT_1_EXA_MQTT_Client.pcwex
+   * JSON_utility_MQTT_client_EXA.pcwex
 
-For these examples, the following is required:
+For this example, the following is required:
 
    * Any PLCnext Control device with firmware version 2021.0 or later.
    * PLCnext Engineer version 2021.0 or later.
@@ -49,11 +49,6 @@ Before using the MQTT programs `Publish` and/or `Subscribe`, check the values of
    | CLIENT_ID      | The ID of the MQTT client.<br/>Must be unique on the MQTT broker.                                           | PLCnext Subscriber or<br/>PLCnext Publisher |
    | TOPIC          | The topic to publish/subscribe to on the broker.                                                            | plcnext                                     |
 
-Note that the MQTT programs in this example project contains two code sheets, one written in Ladder and the other in Structured Text. 
-These two code sheets implement exactly the same functions, but only one will be executed at a time. 
-You can control which sheet is executed using the `Language` variable in the respective program.
-
-
 ### Quick start
 
 1. In the program instance called "JSON_Code_Decode", set the variable `udtCoderExample.udtCoder.x_EN` to `TRUE`. This creates a JSON stream as a byte array. This is passed to the "MQTT_Publish" program instance via Port variables.
@@ -62,75 +57,31 @@ You can control which sheet is executed using the `Language` variable in the res
 
 1. In the program instance called "MQTT_Subscribe", set the variable `Run` to TRUE. This subscribes to the topic on the Mosquitto test broker where the JSON messages are being published.
 
-1. Each time a new message arrives, the JSON Decode process is triggered via Port variables.
+1. Each time a new message is received from the server and consumed by the client, the JSON Decode process is triggered via Port variables.
 
 1. In "JSON_Code_Decode", check the value of the structs udtJsonValue_Dot_INT and udtJsonValue_Dot_DINT. The values of the INT and DINT variables from the incoming JSON stream should appear in these structs.
 
-### Program details: Publish
+### Program details: MQTT Publish
 
-This is an example of how to send messages as an MQTT publisher. The example demonstrates:
+The MQTT Publish program implements a simple state sequencer that progresses through the following steps:
 
-   * Connecting to an MQTT server/broker
-   * Publishing messages
-   * Automatic reconnects
-   * Off-line buffering
-   * Default file-based persistence
-
-To use the Publish example, open the program named "Publish", and complete the following tasks:
-
-1. Check the values of the SERVER_ADDRESS, CLIENT_ID and TOPIC variables, and change them if required.
-1. In the PLCnext *Tasks and Events* window, create an instance of the Publish program in the *Cycle100* task.
-1. Write and Start the project. PLCnext Engineer will go online to the PLC and enter Debug mode.
-1. Add the `Run` variable to the Watch window.
-1. Set the value of `Run` to TRUE.
-1. Using an MQTT subscriber, check that the test messages are being published.
-1. Set the value of `Run` to FALSE.
-
-The program implements a simple state sequencer that progresses through the following steps:
-
-   * Idle - waiting for the Run signal.
+   * Idle - waiting for the start conditions.
    * Connecting - waiting for the client to connect to the server.
    * Running - publishing a simple message every 5 seconds, and waiting for the Run signal to disappear.
-   * Disconnecting - waiting for the client to disconnect from the server.
 
-This example is based on the [async_publish][async_publish] sample in the Paho MQTT C++ library.
+### Program details: MQTT Subscribe
 
-### Program details: Subscribe
-
-This is an example of how to receive messages as an MQTT subscriber.
-
-The example demonstrates:
-
-   * Connecting to an MQTT server/broker
-   * Subscribing to a topic
-   * Receiving messages
-   * Attempting manual reconnects.
-   * Using a "clean session" and manually re-subscribing to topics on reconnect.
-
-To use the Subscribe example, open the program named "Subscribe", and complete the following tasks:
-
-1. Check the values of the SERVER_ADDRESS, CLIENT_ID and TOPIC variables, and change them if required.
-1. In the PLCnext *Tasks and Events* window, create an instance of the Subscribe program in the *Cycle100* task.
-1. Write and Start the project. PLCnext Engineer will go online to the PLC and enter Debug mode.
-1. Add the `Run` variable to the Watch window.
-1. Set the value of `Run` to TRUE.
-1. Using an MQTT publisher, check that messages are being received on the subscribed topic.
-1. Set the value of `Run` to FALSE.
-
-The program implements a simple state sequencer that progresses through the following steps:
+The MQTT Subscribe program implements a simple state sequencer that progresses through the following steps:
 
    * Idle - waiting for the Run signal.
    * Connecting - waiting for the client to connect to the server.
-   * Subscribing - waiting for the subscription to complete.
+   * Subscribing.
    * Running - receiving messages, and waiting for the Run signal to disappear.
    * Unsubscribing - waiting for the unsubscription to complete.
-   * Disconnecting - waiting for the client to disconnect from the server.
-
-This example is based on the [async_subscribe][async_subscribe] sample in the Paho MQTT C++ library.
 
 ### Using SSL
 
-The previous examples can be adjusted to use an SSL connection using the following steps:
+The example can be adjusted to use an SSL connection using the following steps:
 
 1. Download the server certificate for the Mosquitto test broker (in PEM format) from [test.mosquitto.org](https://test.mosquitto.org/).
 
