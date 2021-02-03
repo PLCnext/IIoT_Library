@@ -15,14 +15,15 @@ In the future, these will be combined into a single IIOT_Library in the PLCnext 
 
 ## Example
 
-The following PLCnext Engineer project is available in the plcneng directory:
+The following PLCnext Engineer project is available in the `Examples` directory:
 
-   * JSON_utility_MQTT_client_EXA.pcwex
+   * JSON_utility_MQTT_client_EXA.pcweax
 
 For this example, the following is required:
 
    * Any PLCnext Control device with firmware version 2021.0 or later.
    * PLCnext Engineer version 2021.0 or later.
+   * JSON_utility_library_1 and MQTT_Client_Library_2.
    * Access to an MQTT server from the PLC, e.g. test.mosquitto.org.
 
 ### Common setup tasks
