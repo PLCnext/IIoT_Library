@@ -91,8 +91,9 @@ The example can be adjusted to use an SSL connection using the following steps:
 1. Change the value of the SERVER_ADDRESS variable to the following: `ssl://5.196.95.208:8883`
 
 1. In the code, before calling the Connect method, set the following values:
-   * connOpts.xUseSsl := TRUE
+   * connOpts.xUseSslOptions := TRUE
    * connOpts.udtSsl.strTrustStore := `/opt/plcnext/mosquitto.org.crt` (* the full path to the server certificate on the PLC *)
+   * connOpts.udtSsl.xEnableServerCertAuth := TRUE
 
 1. Write and start the project.
 
