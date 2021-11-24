@@ -17,9 +17,7 @@ Contains examples showing how to use Industrial Internet of Things (IIoT) functi
 
 Examples are classified with Device type and Firmware versions. Default Firmware version is 2021.0.5
 
-Plcnext engineer 2021.3 is recommended for Fw 2021.0.5
-
-Plcnext engineer 2021.6 is recommended for Fw 2021.6
+Demos are all created with PLCnext Engineer 2021.6
 
 ### Common setup tasks
 
@@ -52,3 +50,4 @@ The MQTT Subscribe program implements a simple state sequencer that progresses t
    * Subscribing.
    * Running - receiving messages, and waiting for the Run signal to disappear.
    * Unsubscribing - waiting for the unsubscription to complete.
+
