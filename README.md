@@ -18,13 +18,13 @@ Contains examples showing how to use Industrial Internet of Things (IIoT) functi
 | Azure       | Examples/Azure | the use of certs folder is just like AWS.                    |
 | JSON        | Examples/Parser&Writer|Support the conversion between JSON format of structure object and IEC61131 format |
 
-Examples are classified with Device type and Firmware versions. 
-Default Firmware version of Demos 2021.0 are  2021.0.5
-Default Firmware version of Demos 2022.0 and 2022.6 are are 2022.6
-
-Demos 2021.0 are created with PLCnext Engineer 2021.6
-Demos 2022.0 are created with PLCnext Engineer 2022.0.4
-Demos 2022.6 are created with PLCnext Engineer 2022.6
+Examples are classified with Device type and Firmware versions:<br/>
+Default Firmware version of Demos in folder 2021.0 are  2021.0.5<br/>
+Default Firmware version of Demos in the folders 2022.0 and 2022.6 are 2022.0<br/>
+<br />
+Demos in folder 2021.0 are created with PLCnext Engineer 2021.6. They use the IIoT_Library_3<br/>
+Demos in folder 2022.0 are created with PLCnext Engineer 2022.0.4. They use the IIoT_Library_4<br/>
+Demos in folder 2022.6 are created with PLCnext Engineer 2022.6. They use the IIoT_Library_4
 
 ### Common setup tasks
 
