@@ -2,6 +2,8 @@
 
 Contains examples showing how to use Industrial Internet of Things (IIoT) functions in PLCnext Engineer, including:
 
+- IIoT_JSON_Parser function block.
+- IIoT_JSON_Writer function block.
 - IIoT_JSON_Coder function block.
 - IIoT_JSON_Decoder function block.
 - IIoT_MqttClient function block.
@@ -14,10 +16,15 @@ Contains examples showing how to use Industrial Internet of Things (IIoT) functi
 | Ali cloud   | Examples/Ali   | ProductKey, DeviceName and DeviceSecret should be correctly feed to IIoT_AliCertificateInfo FB, which can automatically convert these three element to elements that can be directly applied to IIoT_MqttClient FB |
 | AWS         | Examples/AWS   | Connection is based on X509 certificates. The certs folder should be put to plcnext device (e.g /opt/plcnext/certs). and if you want to see the messages on cloud side, you should register your own device on AWS, and use the affliliated certificates and keys. |
 | Azure       | Examples/Azure | the use of certs folder is just like AWS.                    |
+| JSON        | Examples/Parser&Writer|Support the conversion between JSON format of structure object and IEC61131 format |
 
-Examples are classified with Device type and Firmware versions. Default Firmware version is 2021.0.5
+Examples are classified with Device type and Firmware versions. 
+Default Firmware version of Demos 2021.0 are  2021.0.5
+Default Firmware version of Demos 2022.0 and 2022.6 are are 2022.6
 
-Demos are all created with PLCnext Engineer 2021.6
+Demos 2021.0 are created with PLCnext Engineer 2021.6
+Demos 2022.0 are created with PLCnext Engineer 2022.0.4
+Demos 2022.6 are created with PLCnext Engineer 2022.6
 
 ### Common setup tasks
 
